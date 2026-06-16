@@ -129,3 +129,17 @@ FROM books b LEFT JOIN orders o
 ON b.book_id=o.book_id
 GROUP BY b.book_id
 order by b.book_id
+--revenue geenarte
+    
+WITH GenreRevenue AS (
+    SELECT
+        b.genre,
+        SUM(o.total_amount) AS revenue
+    FROM orders o
+    JOIN books b
+    ON o.book_id=b.book_id
+    GROUP BY b.genre
+)
+SELECT *
+FROM GenreRevenue
+ORDER BY revenue DESC;
